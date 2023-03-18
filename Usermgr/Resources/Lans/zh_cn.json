@@ -1,0 +1,6 @@
+﻿{
+  "plugin.official.usermgr.desc": "OMCC提供的默认用户管理器",
+  "plugin.official.usermgr.name": "默认用户管理器",
+  "plugin.official.usermgr.class.name": "默认用户管理器",
+  "plugin.official.usermgr.offlineuser.name": "离线用户"
+}

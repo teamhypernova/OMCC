@@ -29,6 +29,7 @@ namespace OMCCore.UI
             if(p !=null)
             {
                 this.SetBinding(TitleProperty, new Binding("Title") { Source = p, Mode = BindingMode.TwoWay });
+                this.SetBinding(CaptionHeightProperty, new Binding("CaptionHeight") { Source = p, Mode = BindingMode.TwoWay });
                 MinimizeCommand = new RelayCommand(() =>
                 {
                     p.WindowState = WindowState.Minimized;
@@ -39,6 +40,7 @@ namespace OMCCore.UI
                 });
             }
         }
+        public OFrame? ChildOFrame { get => GetChildOFrame(this); set => SetChildOFrame(this, value); }
         public object? LeftTitleContent { get => GetLeftTitleContent(this); set => SetLeftTitleContent(this, value); }
         public object? RightTitleContent { get => GetRightTitleContent(this); set => SetRightTitleContent(this, value); }
         public double CaptionHeight { get => GetCaptionHeight(this); set => SetCaptionHeight(this, value); }
@@ -46,7 +48,57 @@ namespace OMCCore.UI
         public bool CanMinimize { get => GetCanMinimize(this); set => SetCanMinimize(this, value); }
         public ICommand MinimizeCommand { get => GetMinimizeCommand(this); set => SetMinimizeCommand(this, value); }
         public ICommand CloseCommand { get => GetCloseCommand(this); set => SetCloseCommand(this, value); }
+        public ICommand GoBackCommand { get => GetGoBackCommand(this); set => SetGoBackCommand(this, value); }
+        public bool CanGoBack { get => GetCanGoBack(this); set => SetCanGoBack(this, value); }
 
+
+        public static bool GetCanGoBack(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(CanGoBackProperty);
+        }
+
+        public static void SetCanGoBack(DependencyObject obj, bool value)
+        {
+            obj.SetValue(CanGoBackProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for CanGoBack.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanGoBackProperty =
+            DependencyProperty.RegisterAttached("CanGoBack", typeof(bool), typeof(OWindowContent), new PropertyMetadata(null));
+
+
+
+
+
+
+        public static ICommand GetGoBackCommand(DependencyObject obj)
+        {
+            return (ICommand)obj.GetValue(GoBackCommandProperty);
+        }
+
+        public static void SetGoBackCommand(DependencyObject obj, ICommand value)
+        {
+            obj.SetValue(GoBackCommandProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for GoBackCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty GoBackCommandProperty =
+            DependencyProperty.RegisterAttached("GoBackCommand", typeof(ICommand), typeof(OWindowContent), new PropertyMetadata(null));
+
+
+        public static OFrame GetChildOFrame(DependencyObject obj)
+        {
+            return (OFrame)obj.GetValue(ChildOFrameProperty);
+        }
+
+        public static void SetChildOFrame(DependencyObject obj, OFrame value)
+        {
+            obj.SetValue(ChildOFrameProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for ChildOFrame.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ChildOFrameProperty =
+            DependencyProperty.RegisterAttached("ChildOFrame", typeof(OFrame), typeof(OWindowContent), new PropertyMetadata(null));
 
 
 

@@ -1,8 +1,7 @@
 ﻿<Application x:Class="OMCC.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:OMCC"
-             StartupUri="MainWindow.xaml" Startup="Application_Startup">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" ShutdownMode="OnMainWindowClose"
+             xmlns:local="clr-namespace:OMCC" xmlns:converter="clr-namespace:OMCCore.Converter;assembly=OMCCore" Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -11,6 +10,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converter:Bool2VisConvt x:Key="Bool2VisConvt"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

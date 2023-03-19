@@ -1,10 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
+using OMCC.Plugins.UserManager.Resources;
+using OMCCore.Model.Data;
 using System;
+using System.Windows.Media;
 using Vlingo.Xoom.UUID;
 
 namespace OMCC.Plugins.UserManager
 {
-    public sealed class OfflineUser : User
+    public sealed class OfflineUser : User,IImmediateIcon
     {
         static NameBasedGenerator gen = new NameBasedGenerator();
 
@@ -23,6 +26,8 @@ namespace OMCC.Plugins.UserManager
         public string Uuid => gen.GenerateGuid($"OfflinePlayer:{Name}").ToString();
         public string Token => Uuid;
         public override UserType Type => OfflineUserType.OFFLINE;
+
+        public ImageSource IconImmediate => ResIndex.steve;
 
         public override JObject Serialize()
         {

@@ -16,7 +16,7 @@ namespace OMCC.Plugins.UserManager
     {
         public UserManager()
         {
-            AddUser(new OfflineUser("Steve"));
+
         }
         public static Logger logger = new Logger("Official UserManager", "officialusermgr");
         public string Id => "plugin.official.usermgr";
@@ -52,10 +52,11 @@ namespace OMCC.Plugins.UserManager
             var iv = GetIv();
             var result = new List<IImmediateUser>();
             var config = Configs.GetConfig<UserManagerConfig>();
-            foreach (JObject obj in config.UserObjects)
+            foreach (var prop in config.UserObjects)
             {
                 try
                 {
+                    JObject obj = (JObject?)prop.Value ?? new JObject();
                     var id = obj["id"];
                     if (id != null)
                     {
@@ -78,7 +79,7 @@ namespace OMCC.Plugins.UserManager
                 }
                 catch (Exception ex)
                 {
-                    logger.error("Cannot load user object.\n" + obj.ToString(), ex);
+                    logger.error("Cannot load user object.\n" + prop.Value?.ToString() ?? "", ex);
                 }
             }
             return result.ToArray();
@@ -106,21 +107,10 @@ namespace OMCC.Plugins.UserManager
             UserTypes[type.Id] = type;
             logger.info($"Registered UserType({type.Id})");
         }
-    }
-    public abstract class User : IImmediateUser
-    {
-        public abstract string NameImmediate { get; }
-        public abstract string UuidImmediate { get; }
-        public abstract string TokenImmediate { get; }
-        public virtual bool IsCrypted { get; } = false;
-        public abstract UserType Type { get; }
-        public virtual Text UserType => Type.Name;
-        public abstract JObject Serialize();
-    }
-    public abstract class UserType
-    {
-        public abstract Text Name { get; }
-        public abstract string Id { get; }
-        public abstract User Parse(JObject data);
+
+        public IImmediateUser GetSelectedUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

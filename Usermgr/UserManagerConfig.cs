@@ -7,7 +7,8 @@ namespace OMCC.Plugins.UserManager
 {
     public class UserManagerConfig : ConfigFile
     {
-        public JArray UserObjects { get; set; } = new JArray();
+        public JObject UserObjects { get; set; } = new JObject();
         public Guid CryptoKey { get; set; } = Guid.NewGuid();
+        public 
     }
 }

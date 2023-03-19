@@ -20,6 +20,7 @@ namespace OMCCore.Core.User
         public string Id { get; }
         public Text Name { get; }
         public IImmediateUser[] GetUsers();
+        public IImmediateUser GetSelectedUser();
     }
     public static class Users
     {

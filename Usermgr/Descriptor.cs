@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OMCC.Plugins
 {
-    public class Descriptor : OMCCore.Plugins.Descriptor
+    public class Descriptor : OMCCore.Plugins.IDescriptor
     {
         public Text Name => new Text("plugin.official.usermgr.name");
 

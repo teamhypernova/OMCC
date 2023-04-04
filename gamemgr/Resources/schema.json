@@ -1,0 +1,242 @@
+﻿{
+  "$defs": {
+    "rule": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "features": {
+          "type": "object",
+          "patternProperties": {
+            "[\\s\\S]+": {
+              "type": "boolean"
+            }
+          }
+        },
+        "os": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "arch": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "anyOf": [
+            {
+              "required": [ "name" ]
+            },
+            {
+              "required": [ "arch" ]
+            },
+            {
+              "required": [ "version" ]
+            }
+          ]
+        }
+      },
+      "required": [ "action" ]
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "download4": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sha1": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [ "sha1", "size", "url", "id" ]
+    },
+    "download4path": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha1": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [ "sha1", "size", "url", "path" ]
+    },
+    "download3": {
+      "type": "object",
+      "properties": {
+        "sha1": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [ "sha1", "size", "url" ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "arguments": {
+      "type": "object",
+      "patternProperties": {
+        "[\\s\\S]+": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "rules": {
+                    "$ref": "#/$defs/rules"
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "anyOf": [
+        {
+          "required": [ "game" ]
+        },
+        {
+          "required": [ "jvm" ]
+        }
+      ]
+    },
+    "minecraftArguments": {
+      "type": "string"
+    },
+    "assetIndex": {
+      "$ref": "#/$defs/download4"
+    },
+    "downloads": {
+      "type": "object",
+      "properties": {
+        "client": {
+          "$ref": "#/$defs/download3"
+        }
+      },
+      "required": [ "client" ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "javaVersion": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "type": "string"
+        },
+        "majorVersion": {
+          "type": "number"
+        }
+      },
+      "required": [ "component", "majorVersion" ]
+    },
+    "libraries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "downloads": {
+            "type": "object",
+            "properties": {
+              "artifact": {
+                "$ref": "#/$defs/download4path"
+              },
+              "classifiers": {
+                "type": "object",
+                "properties": {
+                  "natives-windows": {
+                    "$ref": "#/$defs/download4path"
+                  }
+                }
+              }
+            },
+            "anyOf": [
+              { "required": [ "artifact" ] },
+              { "required": [ "classifiers" ] }
+            ]
+          },
+          "name": { "type": "string" },
+          "natives": {
+            "type": "object",
+            "patternProperties": {
+              "[\\s\\S]+": { "type": "string" }
+            }
+          }
+        },
+        "required": [ "name" ]
+      }
+    },
+    "mainClass": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "assetIndex",
+    "downloads",
+    "id",
+    "javaVersion",
+    "libraries",
+    "mainClass",
+    "type"
+  ],
+  "anyOf": [
+    {
+      "required": [ "arguments" ]
+    },
+    {
+      "required": [ "minecraftArguments" ]
+    }
+  ]
+}

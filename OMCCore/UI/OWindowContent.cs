@@ -50,7 +50,7 @@ namespace OMCCore.UI
         public ICommand CloseCommand { get => GetCloseCommand(this); set => SetCloseCommand(this, value); }
         public ICommand GoBackCommand { get => GetGoBackCommand(this); set => SetGoBackCommand(this, value); }
         public bool CanGoBack { get => GetCanGoBack(this); set => SetCanGoBack(this, value); }
-
+        public OWindow? Window => VisualTreeHelperExtend.FindParent<OWindow>(this);
 
         public static bool GetCanGoBack(DependencyObject obj)
         {
@@ -161,7 +161,14 @@ namespace OMCCore.UI
 
         // Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.RegisterAttached("Title", typeof(string), typeof(OWindowContent), new PropertyMetadata(""));
+            DependencyProperty.RegisterAttached("Title", typeof(string), typeof(OWindowContent), new PropertyMetadata("", (x, s) =>
+            {
+                var ow = (OWindowContent)x;
+                if(ow.Window!=null)
+                {
+                    ow.Window.Title = s.NewValue.ToString();
+                }
+            }));
 
 
 

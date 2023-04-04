@@ -1,6 +1,18 @@
 ﻿{
-  "plugin.official.usermgr.desc": "OMCC提供的默认用户管理器",
-  "plugin.official.usermgr.name": "默认用户管理器",
-  "plugin.official.usermgr.class.name": "默认用户管理器",
-  "plugin.official.usermgr.offlineuser.name": "离线用户"
+  "plugin.official.usermgr": {
+    "desc": "OMCC提供的默认用户管理器",
+    "name": "默认用户管理器",
+    "class.name": "默认用户管理器",
+    "offlineuser.name": "离线用户",
+    "usercount": "{0}个用户",
+    "title": "用户管理",
+    "userlist.text": "用户列表",
+    "adduser.title": "添加用户",
+    "username.text": "用户名",
+    "login.text": "登录"
+  },
+  "plugin.official.usermgr.public": {
+    "usrname_cannot_be_null": "用户名不能为空",
+    "usrname_cannot_con_spa_q": "用户名不能包含引号或空格"
+  }
 }

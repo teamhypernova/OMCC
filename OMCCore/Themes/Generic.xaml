@@ -1,6 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
     xmlns:globalization="clr-namespace:OMCCore.Globalization"
     xmlns:local="clr-namespace:OMCCore.UI" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:converter="clr-namespace:OMCCore.Converter">
 
@@ -108,7 +109,142 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type local:AniCard}">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignCardBackground}"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:AniCard}">
+                    <ControlTemplate.Resources>
+                        <materialDesign:ShadowEdgeConverter x:Key="ShadowEdgeConverter"/>
+                    </ControlTemplate.Resources>
+                    <Grid Name="grid" Background="Transparent">
+                        <AdornerDecorator CacheMode="{Binding (wpf:ShadowAssist.CacheMode), RelativeSource={RelativeSource Self}}">
+                            <AdornerDecorator.OpacityMask>
+                                <MultiBinding Converter="{StaticResource ShadowEdgeConverter}">
+                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                    <Binding Path="(wpf:ElevationAssist.Elevation)" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                    <Binding Path="(wpf:ShadowAssist.ShadowEdges)" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                </MultiBinding>
+                            </AdornerDecorator.OpacityMask>
+                            <Border xmlns:wpfc="http://materialdesigninxaml.net/winfx/xaml/themes"  CornerRadius="{TemplateBinding UniformCornerRadius}" Effect="{Binding (wpf:ElevationAssist.Elevation), Converter={x:Static wpfc:ShadowConverter.Instance}, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border x:Name="PART_ClipBorder" Background="{TemplateBinding Background}" Clip="{TemplateBinding ContentClip}" Padding="{TemplateBinding Padding}"/>
+                            </Border>
+                        </AdornerDecorator>
+                        <ContentPresenter x:Name="ContentPresenter" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="Opacity">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.000" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.250" Value="0.7"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.300" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <Trigger Property="ClipContent" Value="True">
+                            <Setter Property="Clip" TargetName="ContentPresenter" Value="{Binding ContentClip, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="wpf:ElevationAssist.Elevation" Value="Dp1"/>
+    </Style>
+    <Style TargetType="{x:Type local:OCard}">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignCardBackground}"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:OCard}">
+                    <local:AniCard>
+                        <DockPanel Margin="5">
+                            <Label DockPanel.Dock="Top" Margin="5" Content="{TemplateBinding Title}" FontSize="14" FontWeight="Bold"/>
+                            <Grid Margin="5">
+                                <ContentPresenter x:Name="ContentPresenter" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </DockPanel>
+                    </local:AniCard>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="wpf:ElevationAssist.Elevation" Value="Dp1"/>
+    </Style>
+    <Style TargetType="{x:Type local:ErrorControl}">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignCardBackground}"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ErrorControl}">
+                    <Grid>
+                        <StackPanel VerticalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center" Kind="WindowClose" Width="36" Height="36" Foreground="Red">
+                                </materialDesign:PackIcon>
+                                <globalization:GlobalTextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Key="loading_error.text" FontSize="17" Foreground="Red"/>
+
+                            </StackPanel>
+                            <TextBlock HorizontalAlignment="Center" Foreground="Red" Opacity="0.7" Text="{TemplateBinding Content}" TextWrapping="Wrap" />
+
+                            <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,9,0,0" Command="{Binding RefreshCommand}" Style="{DynamicResource MaterialDesignOutlinedButton}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Sync" Width="28" Height="28" Foreground="{DynamicResource PrimaryHueLightBrush}"/>
+                                    <globalization:GlobalTextBlock VerticalAlignment="Center" Key="reload.text"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="wpf:ElevationAssist.Elevation" Value="Dp1"/>
+    </Style>
+
+    <Style TargetType="{x:Type local:LoadingControl}">
+        <Style.Resources>
+            <converter:InvBool2VisConvt x:Key="InvBool2VisConvt"/>
+            <converter:Bool2VisConvt x:Key="Bool2VisConvt"/>
+        </Style.Resources>
+        <Setter Property="Template">
+            
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:LoadingControl}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid Visibility="{TemplateBinding IsError, Converter={StaticResource InvBool2VisConvt}}">
+                                <Grid Visibility="{TemplateBinding IsLoading, Converter={StaticResource Bool2VisConvt}}">
+                                    <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}" IsIndeterminate="True" Width="30" Height="30" RenderTransformOrigin="0.5,0.5">
+                                        <ProgressBar.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="1.3" ScaleY="1.3"/>
+                                            </TransformGroup>
+                                        </ProgressBar.RenderTransform>
+                                    </ProgressBar>
+                                </Grid>
+                                <Grid Visibility="{TemplateBinding IsLoading, Converter={StaticResource InvBool2VisConvt}}">
+                                    <ContentPresenter/>
+                                </Grid>
+                            </Grid>
+                            <local:ErrorControl Visibility="{TemplateBinding IsError, Converter={StaticResource Bool2VisConvt}}" Content="{TemplateBinding ErrorMessage}"/>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

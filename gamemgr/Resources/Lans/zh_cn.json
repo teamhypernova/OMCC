@@ -1,0 +1,12 @@
+{
+  "plugin.official.gamemgr": {
+    "name": "默认游戏管理器",
+    "desc": "OMCL提供的默认游戏管理器",
+    "validation": {
+      "json_missing": "版本json文件丢失",
+      "jar_missing": "版本主文件丢失",
+      "json_invalid": "版本json文件无效",
+      "json_schema_invalid": "版本json文件无效\n{0}"
+    }
+  }
+}

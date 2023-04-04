@@ -27,7 +27,7 @@ namespace OMCCore.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AddPage(new MainPage(), true, true);
+            AddPage(new News.NewsControl());
         }
     }
 }

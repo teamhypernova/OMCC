@@ -1,4 +1,19 @@
 ﻿{
   "public.window.close": "关闭",
-  "public.window.minimize": "最小化"
+  "public.window.minimize": "最小化",
+
+
+  "mainpage.gamemgr.text": "版本中心",
+  "mainpage.download.text": "资源广场",
+  "mainpage.no_users.text": "没有用户",
+  "mainpage.no_users.adding_not_supported": "不支持添加用户",
+  "mainpage.no_users.click_to_add": "点击添加用户",
+  "mainpage.launch.text": "启动游戏",
+  "mainpage.invalid_version.text": "版本无效",
+  "mainpage.download_game.text": "下载游戏",
+  "mainpage.no_available_versions": "没有可用版本",
+
+
+  "loading_error.text": "加载失败",
+  "reload.text": "重新加载"
 }

@@ -1,0 +1,41 @@
+﻿<ui:OPage  xmlns:ui="clr-namespace:OMCCore.UI;assembly=OMCCore" x:Class="OMCC.Plugins.UserManager.UI.Add.AddUserPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OMCC.Plugins.UserManager.UI.Add" xmlns:globalization="clr-namespace:OMCCore.Globalization;assembly=OMCCore" xmlns:b="http://schemas.microsoft.com/xaml/behaviors" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+           mc:Ignorable="d" Title="{Binding Text, ElementName=title}"
+          d:DesignHeight="317.025" d:DesignWidth="588.605">
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+    <ui:OPage.DataContext>
+        <local:AddUserPageViewModel/>
+    </ui:OPage.DataContext>
+    <ui:OCard>
+        
+        <ui:OCard.Title>
+            <globalization:GlobalTextBlock x:Name="title" Key="plugin.official.usermgr.adduser.title"/>
+        </ui:OCard.Title>
+        <ItemsControl Margin="5" ItemsSource="{Binding UserTypes}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Command="{Binding AddPageCommand}" CommandParameter="{Binding}" Padding="4" Margin="10" Style="{StaticResource MaterialDesignPaperButton}" Width="85" Height="85">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <materialDesign:PackIcon HorizontalAlignment="Center" Kind="AccountOutline" Foreground="{DynamicResource PrimaryHueLightBrush}" Width="40" Height="40"/>
+                            <globalization:GlobalTextBlock HorizontalAlignment="Center" Key="{Binding UserTypeKey}" Foreground="{DynamicResource PrimaryHueLightBrush}"/>
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ui:OCard>
+</ui:OPage>

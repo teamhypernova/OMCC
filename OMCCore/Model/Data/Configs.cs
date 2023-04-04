@@ -6,22 +6,33 @@ namespace OMCCore.Model.Data
 {
     public static class Configs
     {
-        static Dictionary<Type, ConfigFile> ConfigDic { get; } = new Dictionary<Type, ConfigFile>();
+        static Dictionary<string, ConfigFile> ConfigDic { get; } = new Dictionary<string, ConfigFile>();
         public static T GetConfig<T>()
+            where T : ConfigFile
+        {
+            return GetConfig<T>("Configs\\" + typeof(T).FullName);
+        }
+        public static T GetConfig<T>(string filepath)
             where T : ConfigFile
         {
             lock (ConfigDic)
             {
 
-                if (ConfigDic.ContainsKey(typeof(T)))
+                if (ConfigDic.ContainsKey(filepath))
                 {
-                    return (T)ConfigDic[typeof(T)];
+                    return (T)ConfigDic[filepath];
                 }
                 else
                 {
-                    var t = JsonConvert.DeserializeObject<T>(ConfigFileManager.ReadJson("Configs\\" + typeof(T).FullName));
-                    ConfigDic[typeof(T)] = t;
-                    return t;
+                    try
+                    {
+                        var t = JsonConvert.DeserializeObject<T>(ConfigFileManager.ReadJson(filepath));
+                        ConfigDic[filepath] = t;
+                        return t;
+                    }catch(Exception ex)
+                    {
+                        return default(T);
+                    }
                 }
             }
         }

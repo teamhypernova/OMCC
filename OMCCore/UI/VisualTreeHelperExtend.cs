@@ -5,10 +5,10 @@ namespace OMCCore.UI
 {
     public static class VisualTreeHelperExtend
     {
-        public static T? FindParent<T>(DependencyObject obj)
-            where T : DependencyObject
+        public static T? FindParent<T>(FrameworkElement obj)
+            where T : FrameworkElement
         {
-            var p = VisualTreeHelper.GetParent(obj);
+            var p = obj.Parent as FrameworkElement;
             if (p != null)
             {
                 if (p is T t) return t;

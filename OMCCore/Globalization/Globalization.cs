@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using EDGW.Logging;
 using Newtonsoft.Json.Linq;
 using OMCCore.Model.Data;
+using System;
 using System.Collections.Generic;
 
 namespace OMCCore.Globalization
@@ -13,7 +15,7 @@ namespace OMCCore.Globalization
             def.Languages.Add("zh_cn", DictionaryLanguageInfo.FromJson(JObject.Parse(Resources.Languages.zh_cn), "zh_cn"));
             AddLanguagePack(def);
         }
-
+        public static Logger logger = new Logger("Globalization", nameof(Globalization));
         static Dictionary<string, List<ILanguageInfo>> languages { get; } = new ();
         public static void AddLanguagePack(LanguagePack pack)
         {
@@ -37,15 +39,42 @@ namespace OMCCore.Globalization
             lock (SelectedLanguage)
             {
                 if (!languages.ContainsKey(SelectedLanguage)) return key;
-                var lans = languages[SelectedLanguage];
-                foreach(var lan in lans)
+                var lanInfos = languages[SelectedLanguage];
+                foreach(var lanInfo in lanInfos)
                 {
-                    var s = lan.GetString(key);
-                    if (null != s)
+                    var lanString = lanInfo.GetString(key);
+                    if (null != lanString)
                     {
-                        return s;
+                        return lanString;
                     }
                 }
+                logger.error($"Cannot translate key \"{key ?? "null"}\".");
+                return key;
+            }
+        }
+        public static string GetString(string key, params string[] parameters)
+        {
+            lock (SelectedLanguage)
+            {
+                try
+                {
+                    if (!languages.ContainsKey(SelectedLanguage)) return key;
+                    var lanInfos = languages[SelectedLanguage];
+                    foreach (var lanInfo in lanInfos)
+                    {
+                        var lanString = lanInfo.GetString(key);
+                        if (null != lanString)
+                        {
+                            return string.Format(lanString, parameters);
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    logger.error($"Cannot translate key \"{key ?? "null"}\".", ex);
+                    return key;
+                }
+                logger.error($"Cannot translate key \"{key ?? "null"}\".");
                 return key;
             }
         }

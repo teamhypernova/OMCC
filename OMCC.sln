@@ -5,12 +5,25 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OMCC", "OMCC\OMCC.csproj", "{F22E0A6E-ED0B-4326-A54C-19478589C663}"
 	ProjectSection(ProjectDependencies) = postProject
-		{683D39DB-3FEA-43F9-89DB-80A71EDB5E00} = {683D39DB-3FEA-43F9-89DB-80A71EDB5E00}
+		{846E7FF8-D39C-4640-90D3-2DF84DEC1248} = {846E7FF8-D39C-4640-90D3-2DF84DEC1248}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OMCCore", "OMCCore\OMCCore.csproj", "{C3051465-C3E4-4CFC-BCFC-C20C19053B84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManager", "Usermgr\UserManager.csproj", "{683D39DB-3FEA-43F9-89DB-80A71EDB5E00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManager", "Usermgr\UserManager.csproj", "{683D39DB-3FEA-43F9-89DB-80A71EDB5E00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{57695BA5-FE74-4464-84CD-20369114B644}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Body", "Body", "{40252059-22C0-48A0-9B1A-A8771B464E63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameManager", "gamemgr\GameManager.csproj", "{846E7FF8-D39C-4640-90D3-2DF84DEC1248}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManagerTests", "GameManagerTests\GameManagerTests.csproj", "{802E8F95-B410-4D15-8E5C-B478EC7D9236}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E51D3AB-0AE1-4B54-857F-D355F3FCAF23}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,9 +43,23 @@ Global
 		{683D39DB-3FEA-43F9-89DB-80A71EDB5E00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{683D39DB-3FEA-43F9-89DB-80A71EDB5E00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{683D39DB-3FEA-43F9-89DB-80A71EDB5E00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{846E7FF8-D39C-4640-90D3-2DF84DEC1248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{846E7FF8-D39C-4640-90D3-2DF84DEC1248}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{846E7FF8-D39C-4640-90D3-2DF84DEC1248}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{846E7FF8-D39C-4640-90D3-2DF84DEC1248}.Release|Any CPU.Build.0 = Release|Any CPU
+		{802E8F95-B410-4D15-8E5C-B478EC7D9236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{802E8F95-B410-4D15-8E5C-B478EC7D9236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{802E8F95-B410-4D15-8E5C-B478EC7D9236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{802E8F95-B410-4D15-8E5C-B478EC7D9236}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F22E0A6E-ED0B-4326-A54C-19478589C663} = {40252059-22C0-48A0-9B1A-A8771B464E63}
+		{C3051465-C3E4-4CFC-BCFC-C20C19053B84} = {40252059-22C0-48A0-9B1A-A8771B464E63}
+		{683D39DB-3FEA-43F9-89DB-80A71EDB5E00} = {57695BA5-FE74-4464-84CD-20369114B644}
+		{846E7FF8-D39C-4640-90D3-2DF84DEC1248} = {57695BA5-FE74-4464-84CD-20369114B644}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7F38D5B-BC44-4FE7-A125-7431402B7775}

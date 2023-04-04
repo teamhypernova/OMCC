@@ -15,7 +15,7 @@ namespace OMCC.Plugins.UserManager
         }
         public override void OnRegistering()
         {
-            Users.RegisterUserManager(new UserManager());
+            UserRegistry.Current.Register(UserManager.Current);
         }
     }
 }

@@ -4,13 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OMCCore.UI"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d" Height="450" Width="800">
     <local:OWindowContent>
-        <local:OFrame>
-            <local:OFrame.SelectedPage>
-                <local:MainPage/>
-            </local:OFrame.SelectedPage>
-        </local:OFrame>
+        <Grid>
+            <Grid Opacity="0.3">
+                <Grid.Background>
+
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="{DynamicResource Primary100}"/>
+                        <GradientStop Color="{DynamicResource Primary400}" Offset="0.74"/>
+                        <GradientStop Color="{DynamicResource Primary200}" Offset="0.44"/>
+                        <GradientStop Color="{DynamicResource Primary400}" Offset="0.26"/>
+                        <GradientStop Color="{DynamicResource Primary100}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+            </Grid>
+            <local:OFrame d:Visibility="Collapsed">
+                <local:OFrame.SelectedPage>
+                    <local:MainPage/>
+                </local:OFrame.SelectedPage>
+            </local:OFrame>
+        </Grid>
     </local:OWindowContent>
 </local:OWindow>

@@ -22,17 +22,25 @@ namespace OMCCore.UI
 
             DefaultStyleKeyProperty.OverrideMetadata(typeof(OFrame), new FrameworkPropertyMetadata(typeof(OFrame)));
         }
-        public override void OnApplyTemplate()
+        OWindowContent? wc = null;
+        public OWindowContent? WindowContent 
         {
-            WindowContent = VisualTreeHelperExtend.FindParent<OWindowContent>(this);
-            if (WindowContent != null)
+            get
             {
-                WindowContent.ChildOFrame = this;
-                WindowContent.GoBackCommand = GoBackCommand; ;
-                WindowContent.CanGoBack = CanGoBack;
+                var v = VisualTreeHelperExtend.FindParent<OWindowContent>(this);
+                if (wc != v)
+                {
+                    wc = v;
+                    if (wc != null)
+                    {
+                        wc.ChildOFrame = this;
+                        wc.GoBackCommand = GoBackCommand; ;
+                        wc.CanGoBack = CanGoBack;
+                    }
+                }
+                return v;
             }
         }
-        public OWindowContent? WindowContent { get; set; }
         private void OnPagesChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             var pg = Pages.Any() ? Pages.Last() : null;
@@ -43,10 +51,6 @@ namespace OMCCore.UI
             if (pg != SelectedPage)
             {
                 SelectedPage = pg;
-                if (pg != null && WindowContent != null)
-                {
-                    WindowContent.Title = pg.Title;
-                }
             }
             var cb = Pages.Count > 1;
             if (cb != CanGoBack)
@@ -114,9 +118,19 @@ namespace OMCCore.UI
                     {
                         f.Pages.Add(v);
                     }
+                    if (v != null)
+                    {
+                        f.SetTitle(v.Title);
+                    }
                 }
             }));
-
+        public void SetTitle(string title)
+        {
+            if(WindowContent != null)
+            {
+                WindowContent.Title = title;
+            }
+        }
 
         #endregion
         public void AddPage(OPage page)

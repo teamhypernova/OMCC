@@ -7,7 +7,7 @@ using Vlingo.Xoom.UUID;
 
 namespace OMCC.Plugins.UserManager
 {
-    public sealed class OfflineUser : User,IImmediateIcon
+    public sealed class OfflineUser : User, IImmediateIcon
     {
         static NameBasedGenerator gen = new NameBasedGenerator();
 

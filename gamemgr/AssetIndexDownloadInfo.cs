@@ -10,6 +10,7 @@ namespace OMCC.Plugins.GameManager
             Version = version;
             Size = size;
             Url = url;
+            Id = id;
             Path = System.IO.Path.Combine(version.Directory.AssetIndexesPath, id + ".json");
             Sha1 = sha1;
         }
@@ -27,7 +28,7 @@ namespace OMCC.Plugins.GameManager
         public string Url { get; set; }
 
         public string Path { get; set; }
-
+        public string Id { get; set; }
         public string? Sha1 { get; set; }
         public MinecraftVersion Version { get; set; }
     }

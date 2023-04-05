@@ -1,29 +1,11 @@
 ﻿using OMCCore.Core.Game;
 using OMCCore.Model.Data;
+using OMCCore.News;
 using System;
 using System.Collections.ObjectModel;
 
 namespace OMCC.Plugins.GameManager
 {
-    public class MinecraftLauncher : ILauncher
-    {
-        public MinecraftVersion Version { get; set; }
-
-        public MinecraftLauncher(MinecraftVersion version)
-        {
-            Version = version;
-        }
-
-        public void CompleteFiles()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Start()
-        {
-            throw new NotImplementedException();
-        }
-    }
     public class MinecraftVersion : IGameVersion
     {
         public MinecraftVersion(MinecraftDirectory directory, string localId)
@@ -39,6 +21,108 @@ namespace OMCC.Plugins.GameManager
         public string JsonPath => System.IO.Path.Combine(Path, LocalId + ".json");
         public string JarPath => System.IO.Path.Combine(Path, LocalId + ".jar");
         public string Name => Config.Name;
+        public bool IsModded => false;//TODO:IsModded
+        public bool IsUnreleased => false;//TODO:IsUnreleased
+        public string GameDirectory
+        {
+            get
+            {
+                if (IsIsolated)
+                {
+                    return Path;
+                }
+                else
+                {
+                    return Directory.DirectoryPath;
+                }
+            }
+        }
+        public string NativesDirectory => System.IO.Path.Combine(Path, LocalId + "-natives");
+        public bool IsIsolated
+        {
+            get
+            {
+                var isol = Config.Isolation;
+                if(isol== VersionIsolation.Global)
+                {
+                    var gisol = Configs.GetConfig<MinecraftConfig>();
+                    switch (gisol.Isolation)
+                    {
+                        case GlobalVersionIsolation.On:
+                            {
+                                return true;
+                            }
+                        case GlobalVersionIsolation.Off:
+                            {
+                                return false;
+                            }
+                        case GlobalVersionIsolation.Modded:
+                            {
+                                return IsModded;
+                            }
+                        case GlobalVersionIsolation.Unreleased:
+                            {
+                                return IsUnreleased;
+                            }
+                        case GlobalVersionIsolation.ModdedAndUnreleased:
+                            {
+                                return IsModded | IsUnreleased;
+                            }
+                        default:
+                            {
+                                return false;
+                            }
+                    }
+                }
+                else
+                {
+                    return isol == VersionIsolation.On;
+                }
+            }
+        }
+        public bool IsDemoUser
+        {
+            get
+            {
+                if(Config.IsDemoUser== VersionBoolean.Global)
+                {
+                    return Configs.GetConfig<MinecraftConfig>().IsDemoUser;
+                }
+                else
+                {
+                    return Config.IsDemoUser == VersionBoolean.True;
+                }
+            }
+        }
+        public ResolutionInfo Resolution
+        {
+            get
+            {
+                if (Config.HasCustomResolution == VersionBoolean.Global)
+                {
+                    var config = Configs.GetConfig<MinecraftConfig>();
+                    if (config.HasCustomResolution)
+                    {
+                        return ResolutionInfo.Create(config.ResWidth, config.ResHeight);
+                    }
+                    else
+                    {
+                        return ResolutionInfo.Auto();
+                    }
+                }
+                else
+                {
+                    if (Config.HasCustomResolution == VersionBoolean.True)
+                    {
+                        return ResolutionInfo.Create(Config.ResWidth, Config.ResHeight);
+                    }
+                    else
+                    {
+                        return ResolutionInfo.Auto();
+                    }
+                }
+            }
+        }
         public string GetDisplayName()
         {
             if (string.IsNullOrWhiteSpace(Name))
@@ -73,7 +157,7 @@ namespace OMCC.Plugins.GameManager
         }
         public ILauncher GetLauncher()
         {
-            throw new NotImplementedException();
+            return new MinecraftLauncher(this);
         }
 
         public GameValidationInfo Validate()

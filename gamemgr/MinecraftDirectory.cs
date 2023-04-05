@@ -10,6 +10,7 @@ namespace OMCC.Plugins.GameManager
     {
         public string DirectoryPath { get; set; } = "";
         public string VersionsPath => Path.Combine(DirectoryPath, "versions");
+        public string LibrariesPath => Path.Combine(DirectoryPath, "libraries");
         public string AssetsPath => Path.Combine(DirectoryPath, "assets");
         public string AssetIndexesPath => Path.Combine(AssetsPath, "indexes");
         public string AssetObjectsPath => Path.Combine(AssetsPath, "objects");

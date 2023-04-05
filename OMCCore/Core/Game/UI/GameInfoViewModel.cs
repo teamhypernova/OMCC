@@ -6,6 +6,7 @@ using OMCCore.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,28 @@ namespace OMCCore.Core.Game.UI
             if (ui != null)
             {
                 navigator.AddPage(ui.CreatePage());
+            }
+        }
+        [RelayCommand(CanExecute = nameof(HasVersions))]
+        public void StartSelectedGame()
+        {
+            if (SelectedGame != null)
+            {
+                StartGame(SelectedGame);
+            }
+        }
+        [RelayCommand(CanExecute =nameof(HasVersions))]
+        public void StartGame(GameViewModel vm)
+        {
+            try
+            {
+                var l = vm.Version.GetLauncher();
+                l.Start();
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                //TODO:exception handler
             }
         }
         public void Load()

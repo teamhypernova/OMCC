@@ -7,6 +7,13 @@
       "jar_missing": "版本主文件丢失",
       "json_invalid": "版本json文件无效",
       "json_schema_invalid": "版本json文件无效\n{0}"
+    },
+    "start": {
+      "title": "启动游戏 {0}",
+      "login": "用户登录",
+      "checkfiles": "检查版本文件",
+      "genargs": "生成参数",
+      "wait": "等待游戏启动"
     }
   }
 }

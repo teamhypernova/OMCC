@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OMCC.Plugins.GameManager.Tests
 {
@@ -14,7 +15,8 @@ namespace OMCC.Plugins.GameManager.Tests
         [TestMethod()]
         public void MinecraftProfileTest()
         {
-            var prof = MinecraftProfile.Parse((MinecraftVersion)(GameManager.Current.GetVersions().Where(x => ((MinecraftVersion)x).LocalId == "1.14.4").First()));
+            var app = new Application();
+            new MinecraftLauncher((MinecraftVersion)(GameManager.Current.GetVersions().Where(x => ((MinecraftVersion)x).LocalId == "1.0").First())).Start();
         }
 
     }

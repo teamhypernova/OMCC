@@ -22,4 +22,5 @@ namespace OMCCore.Cryptography
             return Encoding.UTF8.GetString(bytes);
         }
     }
+
 }

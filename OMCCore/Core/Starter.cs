@@ -14,6 +14,8 @@ namespace OMCCore.Core
 
     public class Starter
     {
+        public string LauncherName => "OMCC";
+        public string LauncherVersion => "deb0.0.1";
         public static Starter Instance { get; } = new Starter();
         private Starter() { }
         bool started = false;

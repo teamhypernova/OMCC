@@ -44,6 +44,11 @@ namespace OMCC.Plugins.UserManager
             return HashCode.Combine(UniqueName);
         }
 
+        public UserInfo CreateUserInfo()
+        {
+            return new UserInfo(NameImmediate, UuidImmediate, "offline", UuidImmediate, UuidImmediate);
+        }
+
         public virtual string UniqueName => UuidImmediate + Type.Id;
 
         public string AdditionalString => UserType.Content;

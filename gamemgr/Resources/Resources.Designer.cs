@@ -61,6 +61,45 @@ namespace OMCC.Plugins.GameManager.Resources {
         }
         
         /// <summary>
+        ///   查找类似 [
+        ///  {
+        ///    &quot;rules&quot;: [
+        ///      {
+        ///        &quot;action&quot;: &quot;allow&quot;,
+        ///        &quot;os&quot;: {
+        ///          &quot;name&quot;: &quot;osx&quot;
+        ///        }
+        ///      }
+        ///    ],
+        ///    &quot;value&quot;: [
+        ///      &quot;-XstartOnFirstThread&quot;
+        ///    ]
+        ///  },
+        ///  {
+        ///    &quot;rules&quot;: [
+        ///      {
+        ///        &quot;action&quot;: &quot;allow&quot;,
+        ///        &quot;os&quot;: {
+        ///          &quot;name&quot;: &quot;windows&quot;
+        ///        }
+        ///      }
+        ///    ],
+        ///    &quot;value&quot;: &quot;-XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump&quot;
+        ///  },
+        ///  {
+        ///    &quot;rules&quot;: [
+        ///      {
+        ///        &quot;action&quot;: &quot;allow&quot;,
+        ///        &quot;os&quot;: {
+        ///     [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string defjvmarg {
+            get {
+                return ResourceManager.GetString("defjvmarg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Byte[] 类型的本地化资源。
         /// </summary>
         internal static byte[] Newtonsoft_Json_Schema {
@@ -83,7 +122,7 @@ namespace OMCC.Plugins.GameManager.Resources {
         ///          &quot;type&quot;: &quot;object&quot;,
         ///          &quot;patternProperties&quot;: {
         ///            &quot;[\\s\\S]+&quot;: {
-        ///              &quot;type&quot;: &quot;string&quot;
+        ///              &quot;type&quot;: &quot;boolean&quot;
         ///            }
         ///          }
         ///        },
@@ -94,7 +133,7 @@ namespace OMCC.Plugins.GameManager.Resources {
         ///              &quot;type&quot;: &quot;string&quot;
         ///            },
         ///            &quot;arch&quot;: {
-        ///              &quot;typ [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///              &quot;ty [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string schema {
             get {

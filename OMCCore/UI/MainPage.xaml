@@ -76,7 +76,7 @@
                 <TextBlock FontSize="12" Opacity="0.7" HorizontalAlignment="Center" Text="{Binding GameInfo.SelectedGame.Name}"/>
             </StackPanel>
         </Button>
-        <Button Visibility="{Binding GameInfo.SelectedGame.Error, Converter={StaticResource InvBool2VisConvt}}" ToolTip="{Binding GameInfo.SelectedGame.Tooltip}" Height="55" HorizontalAlignment="Right" Width="160" Margin="20" VerticalAlignment="Bottom">
+        <Button Command="{Binding GameInfo.StartSelectedGameCommand}" Visibility="{Binding GameInfo.SelectedGame.Error, Converter={StaticResource InvBool2VisConvt}}" ToolTip="{Binding GameInfo.SelectedGame.Tooltip}" Height="55" HorizontalAlignment="Right" Width="160" Margin="20" VerticalAlignment="Bottom">
             <StackPanel>
                 <globalization:GlobalTextBlock Visibility="{Binding GameInfo.HasVersions, Converter={StaticResource Bool2VisConvt}}" HorizontalAlignment="Center" Key="mainpage.launch.text" FontSize="14"/>
                 <globalization:GlobalTextBlock Visibility="{Binding GameInfo.HasVersions, Converter={StaticResource InvBool2VisConvt}}" HorizontalAlignment="Center" Key="mainpage.download_game.text" FontSize="14"/>

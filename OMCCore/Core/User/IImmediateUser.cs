@@ -13,5 +13,6 @@ namespace OMCCore.Core.User
         public string UuidImmediate { get; }
         public string TokenImmediate { get; }
         public Text UserType { get; }
+        public UserInfo CreateUserInfo();
     }
 }
